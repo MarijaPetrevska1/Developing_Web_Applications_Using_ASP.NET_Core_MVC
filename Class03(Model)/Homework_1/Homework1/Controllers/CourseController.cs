@@ -28,7 +28,7 @@ namespace Homework1.Controllers
         // GET: /courses/{id}
         // =>  Returns full course data (Id, Name, NumberOfClasses) by ID
         [HttpGet("{id}")]
-        public IActionResult GetCourseById(int id)
+        public IActionResult GetCourseById(int id) 
         {
             CourseDto course = _courseService.GetCourseById(id);
 
