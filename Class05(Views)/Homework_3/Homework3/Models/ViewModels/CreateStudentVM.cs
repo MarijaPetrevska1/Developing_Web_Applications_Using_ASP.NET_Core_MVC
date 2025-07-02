@@ -11,4 +11,5 @@ namespace Homework3.Models.ViewModels
         public List<CourseOptionVM> Courses { get; set; }
 
     }
+
 }
