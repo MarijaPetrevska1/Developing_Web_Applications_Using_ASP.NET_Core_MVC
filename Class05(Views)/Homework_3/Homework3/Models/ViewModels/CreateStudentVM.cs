@@ -1,4 +1,6 @@
-﻿namespace Homework3.Models.ViewModels
+﻿using Homework3.Models.ViewModels;
+
+namespace Homework3.Models.ViewModels
 {
     public class CreateStudentVM
     {

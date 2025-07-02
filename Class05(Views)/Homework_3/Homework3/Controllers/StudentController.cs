@@ -23,11 +23,9 @@ namespace Homework3.Controllers
         public IActionResult Create()
         {
             CreateStudentVM createStudentVM = new();
-            //createStudentVM.FirstName = "Martin";
-            //createStudentVM.LastName = "Panovski";
             createStudentVM.Courses = InMemoryDb.Courses.Select(x => new CourseOptionVM
             {
-                Id= x.Id,
+                Id = x.Id,
                 Name = x.Name,
             }).ToList();
 
@@ -49,10 +47,12 @@ namespace Homework3.Controllers
             InMemoryDb.Students.Add(student);
             return RedirectToAction("GetAllStudents");
         }
+
         [HttpGet("{id}")]
+
         public IActionResult Details(int id)
         {
-            Student student = InMemoryDb.Students.SingleOrDefault(x=>x.Id == id);
+            Student student = InMemoryDb.Students.SingleOrDefault(x => x.Id == id);
 
             if (student == null)
             {
@@ -72,10 +72,14 @@ namespace Homework3.Controllers
         }
 
         [HttpGet("edit/{id}")]
+
         public IActionResult Edit(int id)
         {
-            Student student = InMemoryDb.Students.FirstOrDefault(s => s.Id == id);
-            if (student == null) return NotFound();
+            Student student = InMemoryDb.Students.FirstOrDefault(x => x.Id == id);
+            if (student == null)
+            {
+                return NotFound();
+            }
 
             EditStudentVM vm = new EditStudentVM
             {
@@ -83,29 +87,30 @@ namespace Homework3.Controllers
                 FirstName = student.FirstName,
                 LastName = student.LastName,
                 DateOfBirth = student.DateOfBirth,
-                ActiveCourseId = student.ActiveCourse?.Id,
-                Courses = InMemoryDb.Courses.Select(c => new CourseOptionVM { Id = c.Id, Name = c.Name }).ToList()
+                ActiveCourseId = student.ActiveCourse.Id,
+                Courses = InMemoryDb.Courses.Select(c => new CourseOptionVM
+                {
+                    Id = c.Id,
+                    Name = c.Name
+                }).ToList()
             };
 
-            return View(vm);
+            return View("Edit", vm); 
         }
 
-        [HttpPost("edit")]
-        public IActionResult Edit(EditStudentVM vm)
+        [HttpPost("edit/{id}")]
+        public IActionResult Edit(int id, EditStudentVM model)
         {
-            if (!ModelState.IsValid)
+            Student student = InMemoryDb.Students.FirstOrDefault(x => x.Id == id);
+            if (student == null)
             {
-                vm.Courses = InMemoryDb.Courses.Select(c => new CourseOptionVM { Id = c.Id, Name = c.Name }).ToList();
-                return View(vm);
+                return NotFound();
             }
 
-            Student student = InMemoryDb.Students.FirstOrDefault(s => s.Id == vm.Id);
-            if (student == null) return NotFound();
-
-            student.FirstName = vm.FirstName;
-            student.LastName = vm.LastName;
-            student.DateOfBirth = vm.DateOfBirth;
-            student.ActiveCourse = InMemoryDb.Courses.FirstOrDefault(c => c.Id == vm.ActiveCourseId);
+            student.FirstName = model.FirstName;
+            student.LastName = model.LastName;
+            student.DateOfBirth = model.DateOfBirth;
+            student.ActiveCourse = InMemoryDb.Courses.FirstOrDefault(c => c.Id == model.ActiveCourseId);
 
             return RedirectToAction("GetAllStudents");
         }

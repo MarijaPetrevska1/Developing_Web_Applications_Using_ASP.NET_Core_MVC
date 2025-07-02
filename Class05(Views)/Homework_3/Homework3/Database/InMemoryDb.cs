@@ -6,7 +6,7 @@ namespace Homework3.Database
     {
         public static List<Student> Students { get; set; }
         public static List<Course> Courses { get; set; }
-        static InMemoryDb() 
+        static InMemoryDb()
         {
             LoadCourses();
             LoadStudents();

@@ -35,7 +35,7 @@
 </div>
 
 <!--TAG HELPER-->
-<div class="container">
+@* <div class="container">
     <h2>Create Student (TAG Helper)</h2>
     <form asp-controller="Student" asp-action="Create" method="post">
         <div>
@@ -63,10 +63,18 @@
             <button type="submit" class="btn btn-primary">Add Student</button>
             <a asp-action="GetAllStudents" class="btn btn-secondary">Go Back</a>
         </div>
-    </form>
+    </form> *@
 
-    <form asp-action="Edit" method="post">
-    @Html.Partial("_StudentFormPartial", Model)
-    <button type="submit">Save</button>
-</form>
+<!--TAG HELPER - PARTIAL VIEW-->
+<div class="container">
+    <h2>Create Student (TAG HELPER with Partial View)</h2>
+
+    <form asp-controller="Student" asp-action="Create" method="post">
+        @await Html.PartialAsync("_StudentForm", Model)
+
+        <div>
+            <button type="submit" class="btn btn-primary">Add Student</button>
+            <a asp-action="GetAllStudents" class="btn btn-secondary">Go Back</a>
+        </div>
+    </form>
 </div>
