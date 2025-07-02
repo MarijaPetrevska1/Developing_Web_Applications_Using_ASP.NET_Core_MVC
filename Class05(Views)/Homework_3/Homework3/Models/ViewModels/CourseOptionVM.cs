@@ -1,4 +1,4 @@
-﻿namespace Class05.Models.ViewModels
+﻿namespace Homework3.Models.ViewModels
 {
     public class CourseOptionVM
     {

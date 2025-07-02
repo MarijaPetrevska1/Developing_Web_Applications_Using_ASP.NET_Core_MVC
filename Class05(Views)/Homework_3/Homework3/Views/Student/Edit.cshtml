@@ -1,0 +1,63 @@
+﻿@using Homework3.Models.ViewModels
+@model EditStudentVM
+
+<!-- HTML Helpers -->
+<h2>Edit Student (HTML Helpers)</h2>
+@using (Html.BeginForm("Edit", "Student", FormMethod.Post))
+{
+    @Html.HiddenFor(m => m.Id)
+
+    <div>
+        @Html.LabelFor(m => m.FirstName)
+        @Html.TextBoxFor(m => m.FirstName)
+    </div>
+
+    <div>
+        @Html.LabelFor(m => m.LastName)
+        @Html.TextBoxFor(m => m.LastName)
+    </div>
+
+    <div>
+        @Html.LabelFor(m => m.DateOfBirth)
+        @Html.TextBoxFor(m => m.DateOfBirth, new { type = "date" })
+    </div>
+
+    <div>
+        @Html.LabelFor(m => m.ActiveCourseId)
+        @Html.DropDownListFor(m => m.ActiveCourseId,
+        new SelectList(Model.Courses, "Id", "Name"),
+        "Select Course")
+</div>
+
+<button type="submit">Save</button>
+}
+
+<!-- Tag Helpers -->
+<h2>Edit Student (Tag Helpers)</h2>
+<form asp-action="Edit" asp-controller="Student" method="post">
+    <input asp-for="Id" type="hidden" />
+
+    <div>
+        <label asp-for="FirstName"></label>
+        <input asp-for="FirstName" />
+    </div>
+
+    <div>
+        <label asp-for="LastName"></label>
+        <input asp-for="LastName" />
+    </div>
+
+    <div>
+        <label asp-for="DateOfBirth"></label>
+        <input asp-for="DateOfBirth" type="date" />
+    </div>
+
+    <div>
+        <label asp-for="ActiveCourseId"></label>
+        <select asp-for="ActiveCourseId" asp-items="@(new SelectList(Model.Courses, "Id", "Name"))">
+            <option value="">Select Course</option>
+        </select>
+    </div>
+
+    <button type="submit">Save</button>
+</form>

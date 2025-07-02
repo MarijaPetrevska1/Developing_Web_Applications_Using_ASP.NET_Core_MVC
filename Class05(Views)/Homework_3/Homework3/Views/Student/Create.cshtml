@@ -1,4 +1,5 @@
-﻿@model CreateStudentVM
+﻿@using Homework3.Models.ViewModels
+@model CreateStudentVM
 
 <!--HTML HELPER-->
 <div class="container">
@@ -64,4 +65,8 @@
         </div>
     </form>
 
+    <form asp-action="Edit" method="post">
+    @Html.Partial("_StudentFormPartial", Model)
+    <button type="submit">Save</button>
+</form>
 </div>

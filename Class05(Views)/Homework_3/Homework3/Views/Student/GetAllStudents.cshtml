@@ -1,4 +1,5 @@
-﻿@model List<StudentVM>
+﻿@using Homework3.Models.ViewModels
+@model List<StudentVM>
 
 <div class="container">
     <h2>All Students</h2>
@@ -23,13 +24,11 @@
                     <td>@student.Age</td>
                     <td>@student.ActiveCourseName</td>
                     <td>
-                        <a 
-                            asp-action="Details"
-                            asp-controller="Student"
-                            asp-route-id="@student.Id"
-                        >Details</a>
+                        <a asp-action="Details"
+                           asp-controller="Student"
+                           asp-route-id="@student.Id">Details</a>
 
-                        @Html.ActionLink("Edit","Edit","Student", new {id = student.Id})
+                        @Html.ActionLink("Edit", "Edit", "Student", new { id = student.Id })
                     </td>
                 </tr>
             }
@@ -40,12 +39,12 @@
 
     <!--HTML HELPER-->
     @Html.ActionLink(
-        linkText: "Create Student (HTML HELPER)",
-        actionName:"Create",
+    linkText: "Create Student (HTML HELPER)",
+        actionName: "Create",
         controllerName: "Student",
         routeValues: null,
-        htmlAttributes: new{@class="btn btn-primary"}
-    )
+        htmlAttributes: new { @class = "btn btn-primary" }
+        )
 
     <!--TAG HELPER-->
     <a asp-controller="Student" asp-action="Create" class="btn btn-primary">Create Student (TAG HELPER)</a>

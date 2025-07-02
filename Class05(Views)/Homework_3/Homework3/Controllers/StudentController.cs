@@ -1,9 +1,9 @@
-﻿using Class05.Database;
-using Class05.Models.Entites;
-using Class05.Models.ViewModels;
+﻿using Homework3.Database;
+using Homework3.Models.Entites;
+using Homework3.Models.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Class05.Controllers
+namespace Homework3.Controllers
 {
     public class StudentController : Controller
     {
@@ -70,5 +70,45 @@ namespace Class05.Controllers
 
             return View(studentVM);
         }
+
+        [HttpGet("edit/{id}")]
+        public IActionResult Edit(int id)
+        {
+            Student student = InMemoryDb.Students.FirstOrDefault(s => s.Id == id);
+            if (student == null) return NotFound();
+
+            EditStudentVM vm = new EditStudentVM
+            {
+                Id = student.Id,
+                FirstName = student.FirstName,
+                LastName = student.LastName,
+                DateOfBirth = student.DateOfBirth,
+                ActiveCourseId = student.ActiveCourse?.Id,
+                Courses = InMemoryDb.Courses.Select(c => new CourseOptionVM { Id = c.Id, Name = c.Name }).ToList()
+            };
+
+            return View(vm);
+        }
+
+        [HttpPost("edit")]
+        public IActionResult Edit(EditStudentVM vm)
+        {
+            if (!ModelState.IsValid)
+            {
+                vm.Courses = InMemoryDb.Courses.Select(c => new CourseOptionVM { Id = c.Id, Name = c.Name }).ToList();
+                return View(vm);
+            }
+
+            Student student = InMemoryDb.Students.FirstOrDefault(s => s.Id == vm.Id);
+            if (student == null) return NotFound();
+
+            student.FirstName = vm.FirstName;
+            student.LastName = vm.LastName;
+            student.DateOfBirth = vm.DateOfBirth;
+            student.ActiveCourse = InMemoryDb.Courses.FirstOrDefault(c => c.Id == vm.ActiveCourseId);
+
+            return RedirectToAction("GetAllStudents");
+        }
+
     }
 }

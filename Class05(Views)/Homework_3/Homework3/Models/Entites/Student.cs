@@ -1,4 +1,4 @@
-﻿namespace Class05.Models.Entites
+﻿namespace Homework3.Models.Entites
 {
     public class Student
     {

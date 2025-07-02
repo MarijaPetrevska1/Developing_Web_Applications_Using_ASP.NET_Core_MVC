@@ -1,6 +1,6 @@
-﻿using Class05.Models.Entites;
+﻿using Homework3.Models.Entites;
 
-namespace Class05.Models.ViewModels
+namespace Homework3.Models.ViewModels
 {
     public class StudentVM
     {
